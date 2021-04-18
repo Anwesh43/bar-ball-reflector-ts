@@ -1,9 +1,9 @@
-const w : number = window.innerWidth
-const h : number = window.innerHeight
-const parts : number = 3 
-const scGap : number = 0.02 / parts  
+const w : number = window.innerWidth * 0.9
+const h : number = window.innerHeight * 0.9
+const parts : number = 2
+const scGap : number = 0.01 / parts  
 const strokeFactor : number = 90 
-const delay : number = 20 
+const delay : number = 25 
 const colors : Array<string> = [
     "#f44336",
     "#9C27B0",
@@ -22,7 +22,7 @@ class ScaleUtil {
     }
     
     static divideScale(scale : number, i : number, n : number) : number {
-        return Math.min(1 / n, ScaleUtil.divideScale(scale, i, n)) * n 
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n 
     }
 
     static sinify(scale : number) : number {
@@ -49,7 +49,7 @@ class DrawingUtil {
         DrawingUtil.drawCircle(
             context, 
             r + (w - 2 * r) * sf2,
-            r + (h - 3 * r) * sff2,
+            r + (h - 2.8 * r) * sff2,
             r * sf1 
         )
         context.fillRect(
@@ -98,6 +98,7 @@ class Stage {
         const stage : Stage = new Stage()
         stage.initCanvas()
         stage.render()
+        stage.handleTap()
     }
 }
 
