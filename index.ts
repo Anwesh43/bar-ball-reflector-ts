@@ -205,3 +205,25 @@ class BallBarReflector {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    bbr : BallBarReflector = new BallBarReflector()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.bbr.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.bbr.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.bbr.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
